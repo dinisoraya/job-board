@@ -23,6 +23,11 @@ Route::resource('jobs', JobController::class)
 Route::get('login', fn() => to_route('auth.create'))->name('login');
 Route::resource('auth', AuthController::class)
     ->only(['create', 'store']);
+
+Route::get('auth/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('auth/register', [AuthController::class, 'storeRegister'])->name('auth.storeRegister');
+
+
 Route::delete('logout', fn() => to_route('auth.destroy'))->name('logout');
 Route::delete('auth', [AuthController::class, 'destroy'])
-    ->name('auth.destroy');
+    ->name('auth.destroy'); 

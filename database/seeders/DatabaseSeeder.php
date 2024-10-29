@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'Pencari Loker',
             'email' => 'pencariloker@gmail.com',
         ]);
-        \App\Models\User::factory(300)->create();
+        \App\Models\User::factory(30)->create();
 
         $users = \App\Models\User::all()->shuffle();
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             \App\Models\Employer::factory()->create([
                 'user_id' => $users->pop()->id
             ]);
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 
         $employers = \App\Models\Employer::all();
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             \App\Models\Job::factory()->create([
                 'employer_id' => $employers->random()->id
             ]);
