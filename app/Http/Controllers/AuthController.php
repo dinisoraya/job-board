@@ -11,11 +11,17 @@ class AuthController extends Controller
 {
     public function create()
     {
+        if (Auth::check()) {
+            return redirect()->intended('/');
+        }
         return view('auth.create');
     }
 
     public function register()
     {
+        if (Auth::check()) {
+            return redirect()->intended('/');
+        }
         return view('auth.register');
     }
 

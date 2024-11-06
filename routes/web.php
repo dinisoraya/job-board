@@ -48,4 +48,5 @@ Route::middleware('auth')->group(function () {
         
     Route::middleware('employer')
         ->resource('my-jobs', MyJobController::class);
+
 });
