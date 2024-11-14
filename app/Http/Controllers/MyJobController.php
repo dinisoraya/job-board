@@ -61,7 +61,7 @@ class MyJobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Job $myJob)
+     public function edit(Job $myJob)
     {
         return view('my_job.edit', ['job' => $myJob]);
     }
@@ -73,7 +73,7 @@ class MyJobController extends Controller
     {
         $myJob->update($request->validated());
         return redirect()->route('my-jobs.index')
-            ->with('success', 'Job updated successfully.')
+            ->with('success', 'Job updated successfully.');
     }
 
     /**
