@@ -12,6 +12,7 @@ class JobController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Job::class);
         $filters = request()->only(
             'search',
             'min_salary',
@@ -47,6 +48,7 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
+        $this->authorize('view', $job);
         return view(
             'job.show',
             ['job' => $job->load('employer.jobs')]
