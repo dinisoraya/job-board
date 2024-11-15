@@ -49,4 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('employer')
         ->resource('my-jobs', MyJobController::class);
 
+    Route::get(
+        'my-jobs/{job}/applications/{application}/download',
+        [JobApplicationController::class, 'downloadCV']
+    )->name('job.application.downloadCV');
 });

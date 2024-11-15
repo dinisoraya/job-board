@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class JobApplicationController extends Controller
 {
@@ -33,6 +35,21 @@ class JobApplicationController extends Controller
 
         return redirect()->route('jobs.show', $job)
             ->with('success', 'Job application submitted.');
+    }
+
+    public function downloadCV(Job $job, $applicationId)
+    {
+        $application = $job->jobApplications()->findOrFail($applicationId);
+
+        $this->authorize('view', $application);
+
+        $cvPath = $application->cv_path;
+
+        if (Storage::disk('private')->exists($cvPath)) {
+            $downloadFileName = $application->user->name . '_CV.pdf';
+            return Storage::disk('private')->download($cvPath, $downloadFileName);        }
+
+        return redirect()->back()->withErrors(['error' => 'File not found.']);
     }
 
     public function destroy(string $id)

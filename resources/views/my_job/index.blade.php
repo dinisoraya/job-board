@@ -13,9 +13,10 @@
       <div>
       Applied {{ $application->created_at->diffForHumans() }}
       </div>
-      <div>
-      Download CV
-      </div>
+      @can('view', $application)
+      <a href="{{ route('job.application.downloadCV', ['job' => $job->id, 'application' => $application->id]) }}"
+      class="text-indigo-500 hover:underline">Download CV</a>
+    @endcan
       </div>
       <div>Rp{{ number_format($application->expected_salary, 0, ',', '.') }}</div>
       </div>
