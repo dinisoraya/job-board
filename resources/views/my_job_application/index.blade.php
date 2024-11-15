@@ -13,11 +13,11 @@
                         {{ $application->job->job_applications_count - 1 }}
                     </div>
                     <div>
-                        Your asking salary ${{ number_format($application->expected_salary) }}
+                        Your asking salary Rp{{ number_format($application->expected_salary, 0, ',', '.') }}
                     </div>
                     <div>
                         Average asking salary
-                        ${{ number_format($application->job->job_applications_avg_expected_salary) }}
+                        Rp{{ number_format($application->job->job_applications_avg_expected_salary, 0, ',', '.') }}
                     </div>
                 </div>
                 <div>
