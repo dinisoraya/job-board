@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -71,5 +72,30 @@ class AuthController extends Controller
         request()->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    // Show the forgot password form
+    public function showForgotPasswordForm()
+    {
+        return view('auth.forgot-password');
+    }
+
+    // Handle password reset
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:8|confirmed', // make sure to confirm the password field
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::where('email', $request->email)->first();
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('login')->with('status', 'Password reset successful!');
     }
 }

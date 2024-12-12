@@ -27,12 +27,11 @@
                     </div>
                 </div>
                 <div>
-                    <a href="#" class="text-indigo-600 hover:underline">
+                    <a href="{{ route('auth.forgotPassword') }}" class="text-indigo-600 hover:underline">
                         Forget password?
                     </a>
                 </div>
             </div>
-
             <x-button class="w-full bg-green-50">Login</x-button>
         </form>
 

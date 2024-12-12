@@ -54,3 +54,6 @@ Route::middleware('auth')->group(function () {
         [JobApplicationController::class, 'downloadCV']
     )->name('job.application.downloadCV');
 });
+
+Route::get('auth/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('auth.forgotPassword');
+Route::post('auth/forgot-password', [AuthController::class, 'resetPassword'])->name('auth.resetPassword');
