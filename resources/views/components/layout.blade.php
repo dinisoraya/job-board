@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Laravel Job Board</title>
+  <title>JobBoard</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -14,7 +14,7 @@
   <nav class="mb-8 flex justify-between text-lg font-medium">
     <ul class="flex space-x-2">
       <li>
-        <a href="{{ route('jobs.index') }}">Home</a>
+        <a href="{{ route('jobs.index') }}">JobBoard</a>
       </li>
     </ul>
 

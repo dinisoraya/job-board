@@ -22,6 +22,7 @@
       </div>
     @empty
       <div>No applications yet</div>
+      <br>
     @endforelse
 
       <div class="flex space-x-2">

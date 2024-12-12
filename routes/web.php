@@ -21,39 +21,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('', fn() => to_route('jobs.index'));
 
-Route::resource('jobs', JobController::class)
-    ->only(['index', 'show']);
+// Job Routes
+Route::resource('jobs', JobController::class)->only(['index', 'show']);
 
+// Authentication Routes
 Route::get('login', fn() => to_route('auth.create'))->name('login');
-Route::resource('auth', AuthController::class)
-    ->only(['create', 'store']);
-
+Route::resource('auth', AuthController::class)->only(['create', 'store']);
 Route::get('auth/register', [AuthController::class, 'register'])->name('auth.register');
 Route::post('auth/register', [AuthController::class, 'storeRegister'])->name('auth.storeRegister');
-
-
 Route::delete('logout', fn() => to_route('auth.destroy'))->name('logout');
-Route::delete('auth', [AuthController::class, 'destroy'])
-    ->name('auth.destroy');
-
-Route::middleware('auth')->group(function () {
-    Route::resource('job.application', JobApplicationController::class)
-        ->only(['create', 'store']);
-
-    Route::resource('my-job-applications', MyJobApplicationController::class)
-        ->only(['index', 'destroy']);
-
-    Route::resource('employer', EmployerController::class)
-        ->only(['create', 'store']);
-
-    Route::middleware('employer')
-        ->resource('my-jobs', MyJobController::class);
-
-    Route::get(
-        'my-jobs/{job}/applications/{application}/download',
-        [JobApplicationController::class, 'downloadCV']
-    )->name('job.application.downloadCV');
-});
-
+Route::delete('auth', [AuthController::class, 'destroy'])->name('auth.destroy');
 Route::get('auth/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('auth.forgotPassword');
 Route::post('auth/forgot-password', [AuthController::class, 'resetPassword'])->name('auth.resetPassword');
+
+// Authenticated Routes
+Route::middleware('auth')->group(function () {
+    // Job Application Routes
+    Route::resource('job.application', JobApplicationController::class)->only(['create', 'store']);
+    Route::resource('my-job-applications', MyJobApplicationController::class)->only(['index', 'destroy']);
+
+    // Employer Routes
+    Route::resource('employer', EmployerController::class)->only(['create', 'store']);
+
+    // My Job Routes
+    Route::middleware('employer')->resource('my-jobs', MyJobController::class);
+
+    // Download CV
+    Route::get('my-jobs/{job}/applications/{application}/download', [JobApplicationController::class, 'downloadCV'])
+        ->name('job.application.downloadCV');
+});

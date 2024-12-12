@@ -85,7 +85,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|exists:users,email',
-            'password' => 'required|min:8|confirmed', // make sure to confirm the password field
+            'password' => 'required|min:8|confirmed',
         ]);
 
         if ($validator->fails()) {
@@ -96,6 +96,6 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('login')->with('status', 'Password reset successful!');
+        return redirect()->route('auth.create')->with('success', 'Password reset successful!');
     }
 }
